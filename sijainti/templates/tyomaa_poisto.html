@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Poista työmaa</h2>
+<p>Oletko varma, että haluat poistaa työmaan "{{ tyomaa.tyomaa_nro }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Kyllä, poista</button>
+    <a href="{% url 'tyomaat' %}">Peruuta</a>
+</form>
+{% endblock %}

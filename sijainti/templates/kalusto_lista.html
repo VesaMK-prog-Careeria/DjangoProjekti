@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 10px;
+    }
+</style>
+<h2>Kaluston Lista</h2>
+<a href="{% url 'kalusto_lisays' %}">Lisää uusi laite</a>
+<table style="width: auto">
+    <tr>
+        <th>Laite</th>
+        <th>Tila</th>
+        <th>Käyttäjä</th>
+        <th>Työmaa</th>
+    </tr>
+    {% for kalusto in kalustot %}
+        <tr>
+            <td>{{ kalusto.laite }}</td>
+            <td>{{ kalusto.tila }}</td>
+            <td>{{ kalusto.kayttaja }}</td>
+            <td>{{ kalusto.tyomaa }}</td>
+            <td><a href="{% url 'kalusto_muokkaus' kalusto.pk %}">Muokkaa</a></td>
+            <td><a href="{% url 'kalusto_poisto' kalusto.pk %}">Poista</a></td>
+        </tr>
+    {% empty %}
+        <tr>
+            <td colspan="4">Ei kalustoa näytettäväksi.</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

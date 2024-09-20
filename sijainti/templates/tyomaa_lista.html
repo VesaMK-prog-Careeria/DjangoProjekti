@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 10px;
+    }
+</style>
+
+<h2>Työmaiden lista</h2>
+<a href="{% url 'tyomaa_lisays' %}">Lisää uusi työmaa</a>
+<table style="width: auto">
+    <tr>
+        <th>Työmaa nro</th>
+        <th>Alku pvm</th>
+        <th>Loppu pvm</th>
+    </tr>
+    {% for tyomaa in tyomaat %}
+        <tr>
+            <td>{{ tyomaa.tyomaa_nro }}</td>
+            <td>{{ tyomaa.alku_pvm }}</td>
+            <td>{{ tyomaa.loppu_pvm }}</td>
+            <td><a href="{% url 'tyomaa_muokkaus' tyomaa.pk %}">Muokkaa</a></td>
+            <td><a href="{% url 'tyomaa_poisto' tyomaa.pk %}">Poista</a></td>
+        </tr>
+    {% empty %}
+        <tr>
+            <td colspan="3">Ei työmaita näytettäväksi.</td>
+        </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Poista laite</h2>
+<p>Oletko varma, että haluat poistaa laitteen "{{ kalusto.laite }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Kyllä, poista</button>
+    <a href="{% url 'kalusto_lista' %}">Peruuta</a>
+</form>
+{% endblock %}
