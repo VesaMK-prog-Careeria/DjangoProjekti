@@ -1,0 +1,28 @@
+databases:
+  - name: tyokaludb
+    plan: free
+    databaseName: suppliers
+    user: vesku
+
+services:
+  - type: web
+    plan: free
+    name: tyokalusovellus
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "python -m gunicorn suppliers.asgi:application -k uvicorn.workers.UvicornWorker"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: tyokaludb
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
+      - key: DJANGO_SUPERUSER_USERNAME
+        value: "vesku"
+      - key: DJANGO_SUPERUSER_PASSWORD
+        value: "vesku"
+      - key: DJANGO_SUPERUSER_EMAIL
+        value: "superduper@usersuper.fi"
