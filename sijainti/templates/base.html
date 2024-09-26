@@ -7,6 +7,16 @@
     <h1>Tervetuloa työkalusovellukseen</h1>
     {% if user.is_authenticated %}
         <p>Olet kirjautunut sisään käyttäjänä {{ user.username }}.</p>
+        <form method="post" action="{% url 'etusivu' %}">
+            {% csrf_token %}
+            <button type="submit">Etusivulle</button>
+        </form>
+        <br>
+        <form method="post" action="{% url 'tyontekija_lisays' %}">
+            {% csrf_token %}
+            <button type="submit">Uusi käyttäjä</button>
+        </form>
+        <br>
         <form method="post" action="{% url 'logout' %}">
             {% csrf_token %}
             <button type="submit">Kirjaudu ulos</button>
@@ -22,7 +32,6 @@
     {% else %}
         <p>Et ole kirjautunut sisään.</p>
         <a href="{% url 'login' %}">Kirjaudu sisään</a> tai
-        <a href="{% url 'rekisterointi' %}">rekisteröidy</a>.
     {% endif %}
 </body>
 </html>

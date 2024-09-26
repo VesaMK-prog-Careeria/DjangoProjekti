@@ -1,24 +1,41 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Kalusto, Tyomaa
+from .models import Kalusto, Tyomaa, Tyontekija
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
-from .forms import RekisterointiLomake, KalustoForm, TyomaaForm
-from django.contrib.auth import logout
+from .forms import KalustoForm, TyomaaForm, CombinedForm, LoginForm
+from django.contrib.auth import logout, login, authenticate
 
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('etusivu')  # Redirect to a success page.
+    else:
+        form = LoginForm()
+    return render(request, 'login.html', {'form': form})
 
+@never_cache # Tämä rivi estää sivun välimuistin käytön
 @login_required
 def etusivu(request):
     return render(request, 'base.html')
 
-def rekisterointi(request):
+#Työntekijä lisäys
+@never_cache # Tämä rivi estää sivun välimuistin käytön
+@login_required
+def tyontekija_lisays(request):
     if request.method == 'POST':
-        form = RekisterointiLomake(request.POST)
+        form = CombinedForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')
+            return redirect('etusivu')
     else:
-        form = RekisterointiLomake()
-    return render(request, 'rekisterointi.html', {'form': form})
+        form = CombinedForm()
+    return render(request, 'tyontekija_lisays.html', {'form': form})
 
 @never_cache # Tämä rivi estää sivun välimuistin käytön
 @login_required # Tämä rivi vaatii kirjautumisen

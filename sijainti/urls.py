@@ -1,10 +1,12 @@
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
+from .views import login_view
 
 urlpatterns = [
+    path('login/', login_view, name='login'),
     path('', views.etusivu, name='etusivu'),  # Aloitussivu
-    path('rekisterointi/', views.rekisterointi, name='rekisterointi'),
+    path('tyontekija/lisaa/', views.tyontekija_lisays, name='tyontekija_lisays'),
     path('kalusto/', views.kalusto_lista, name='kalusto_lista'),
     path('tyomaat/', views.tyomaa_lista, name='tyomaa_lista'),
     path('logout/', auth_views.LogoutView.as_view(next_page='/accounts/login/'), name='logout'),

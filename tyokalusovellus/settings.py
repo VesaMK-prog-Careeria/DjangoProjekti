@@ -132,10 +132,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 if not DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-else:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
+    
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
 
 MEDIA_URL = '/media/'
 
@@ -147,7 +147,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Login- ja logout-redirectit
-LOGIN_URL = '/accounts/login/'
+LOGIN_URL = '/accounts/login/' # Kirjautumissivu
 LOGIN_REDIRECT_URL = '/' # Aloitussivu
 LOGOUT_REDIRECT_URL = '/accounts/login/'
 
