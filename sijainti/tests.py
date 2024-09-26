@@ -3,7 +3,7 @@ from .models import Kalusto, Tyontekija, Tyomaa
 
 class KalustoTestCase(TestCase):
     def setUp(self): # Luodaan testitietokanta
-        Tyontekija.objects.create(username="testi", password1="salasana", password2="salasana", nimi="Testi Testinen")
+        Tyontekija.objects.create(username="testi", password1="salasana", nimi="Testi Testinen")
         Kalusto.objects.create(laite="Porakone", tila="VAPAA")
         
     def test_kalusto_luonti(self): # Testataan, että kalusto on luotu oikein

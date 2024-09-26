@@ -12,13 +12,12 @@ class LoginForm(AuthenticationForm):
 class CombinedForm(UserCreationForm, forms.ModelForm):
     class Meta:
         model = Tyontekija
-        fields = ['username', 'nimi', 'password1', 'password2', 'is_staff', 'is_active']
+        fields = ['username', 'nimi', 'password1', 'is_staff', 'is_active']
 
     def __init__(self, *args, **kwargs): # Tämän tarkoitus on lisätä kentät UserCreationFormiin
         super(CombinedForm, self).__init__(*args, **kwargs)
         self.fields['username'] = forms.CharField(max_length=150, required=True)
         self.fields['password1'] = forms.CharField(widget=forms.PasswordInput, required=True)
-        self.fields['password2'] = forms.CharField(widget=forms.PasswordInput, required=True)
         self.fields['nimi'] = forms.CharField(max_length=100, required=True)
         # radiobuttons for is_staff and is_active
         self.fields['is_staff'] = forms.BooleanField(required=False)

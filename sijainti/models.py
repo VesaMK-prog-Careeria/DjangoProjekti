@@ -23,7 +23,6 @@ class TyontekijaManager(BaseUserManager):
 class Tyontekija(AbstractBaseUser, PermissionsMixin): #AbstractBaseUser ja PermissionsMixin luokat periytyvät
     username = models.CharField(max_length=150, unique=True)
     password1 = models.CharField(max_length=150)
-    password2 = models.CharField(max_length=150)
     nimi = models.CharField(max_length=100)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
