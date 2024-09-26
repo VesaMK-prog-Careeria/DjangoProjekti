@@ -52,10 +52,9 @@ class Tyontekija(AbstractBaseUser, PermissionsMixin): #AbstractBaseUser ja Permi
         return self.username
 
     def save(self, *args, **kwargs):
-        if not self.password1 == self.password2:
-            raise ValueError('Passwords do not match')
-        self.set_password(self.password1)
-        super().save(*args, **kwargs)
+        super(Tyontekija, self).save(*args, **kwargs)
+        return self
+    
 
 class Tyomaa(models.Model):
     tyomaa_nro = models.CharField(max_length=10)
